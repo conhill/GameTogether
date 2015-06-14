@@ -9,6 +9,6 @@ session_unset();
 
 // destroy the session
 session_destroy();
-echo '<meta http-equiv="refresh" content="3;url=mainmain.php">';
+echo '<meta http-equiv="refresh" content="1;url=mainmain.php">';
 echo 'You have been successfully logged out. Return to <a href="mainmain.php">main screen</a>.';
 ?>

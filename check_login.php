@@ -11,8 +11,8 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 
-$userUsername = $_POST['userUsername'];
-$userPassword = $_POST['userPassword'];
+$userUsername = $_POST['Username'];
+$userPassword = $_POST['Password1'];
 
 // to protect against MySQL injection
 $userUsername = mysqli_real_escape_string($cn, stripslashes($userUsername));
@@ -27,11 +27,11 @@ $result = mysqli_query($cn, $sql) or
 $numberOfUsersFound = mysqli_num_rows($result);
 
 if($numberOfUsersFound == 1) {
-    echo '<meta http-equiv="refresh" content="3;url=mainmain.php">';
-	echo '<p>Login successful. Go to <a href="mainmain.php">main page</a>.</p>';
+    echo '<meta http-equiv="refresh" content="1;url=mainmain.php">';
+	echo '<h1 id="goodText" >Login successful</h1>';
 	
 	$_SESSION['loggedInUser'] = $userUsername;
 } else {
-	echo '<p>Wrong Username or Password. Return to <a href="login.php">login page</a>.</p>';
+	echo 'Wrong Username or Password';
 }
 ?>

@@ -124,7 +124,7 @@ function doSearch() {
  <body>
  <?php
    include('cn.php');
-   include('header.html');
+  include_once('header.html');
      include_once('password.php');
 	 
 if (session_status() == PHP_SESSION_NONE) {
@@ -138,11 +138,6 @@ $userUsername = $_SESSION['loggedInUser'];
 
 //$result = mysql_query($query);
 	echo "<div id = 'lognav'>";
-	echo "<ul style ='display: inline; padding-left: 10px;'>";
-	echo "<a href='\profile.php?UN=$userUsername'>Profile</a>&nbsp;";
-	echo "<a href='about.php'>About</a>&nbsp;";
-	echo "<a href='submit.php'>Submit</a>";
-	echo "</ul>";
 	echo "</div>";
 echo "<center><img src='pc.jpg' align='middle'></center>";
 echo "<input type='text' id='searchTerm' onkeyup='doSearch()' placeholder='Type to search'>";
@@ -320,7 +315,7 @@ function doSearch() {
  <body>
  <?php
    include('cn.php');
-   include('header.html');
+    include_once('header.html');
      include_once('password.php');
 	 
 $dbc = mysqli_connect('localhost', 'Dnoop', $password, 'gametogether');
@@ -329,11 +324,6 @@ $result = mysqli_query($dbc, "SELECT * FROM requestpost WHERE consol='Steam' OR 
 
 //$result = mysql_query($query);
 	echo "<div id = 'lognav'>";
-	echo "<ul style ='display: inline; padding-left: 10px;'>";
-	echo "<a href='about.php'>About</a>&nbsp;";
-	echo "<a href='login.php'>Login</a>&nbsp;";
-	echo "<a href='register.php'>Register</a>";
-	echo "</ul>";
 	echo "</div>";
 echo "<center><img src='pc.jpg' align='middle'></center>";
 echo "<input type='text' id='searchTerm' onkeyup='doSearch()' placeholder='Type to search'>";

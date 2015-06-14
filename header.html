@@ -1,12 +1,12 @@
 <?php 
-  //include('cn.php');
+      if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+    } 
+
   include_once('password.php');
-  
-  $cn = mysqli_connect('localhost', 'Dnoop', $password, 'loginsetup') or
+   $cn = mysqli_connect('localhost', 'Dnoop', $password, 'loginsetup') or
 	die('Unable to connect. Check connection parameters.');
-if (session_status() == PHP_SESSION_NONE) {
-	session_start();
-}
+
 
 
    
@@ -20,6 +20,19 @@ ORDER BY indexID DESC");
 if(isset($_SESSION['loggedInUser'])){
 $userUsername = $_SESSION['loggedInUser'];
 ?>
+<style>
+.navbar-inverse .navbar-nav>li>a {
+  color: #9d9d9d;
+  font-family: 'Quicksand', sans-serif;
+  font-size:16px;
+}
+.navbar-inverse .navbar-brand {
+  color: #9d9d9d;
+  font-weight: 800;
+  font-family: 'Quicksand', sans-serif;
+  font-size:20px;
+}
+</style>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
@@ -32,6 +45,7 @@ $userUsername = $_SESSION['loggedInUser'];
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
 
 
 
@@ -51,7 +65,7 @@ $userUsername = $_SESSION['loggedInUser'];
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="\">Home</a></li>
+        <li ><a href="\">Home</a></li>
 		 <li><a href="\profile.php?UN=<?php echo $userUsername; ?>">Profile</a></li>
 		<li><a href="about.php">About</a></li>
 		<li><a href="submit.php">Submit</a></li>		
@@ -71,7 +85,7 @@ $userUsername = $_SESSION['loggedInUser'];
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -87,7 +101,7 @@ $userUsername = $_SESSION['loggedInUser'];
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="\">Home</a></li>
+        <li ><a href="\">Home</a></li>
 			<li><a href="about.php">About</a></li>
 			<li><a href="login.php">Login</a></li>
 			<li><a href="register.php">Register</a></li>		

@@ -1,77 +1,118 @@
-<body>
 <?php
 include('cn.php');
 
-$userEmail = $_POST['userEmail'];	
-$userUsername = $_POST['userUsername'];
-$userPassword = $_POST['userPassword'];
-$userPasswordConfirm = $_POST['userPasswordConfirm'];
-$userSex = $_POST['userSex'];
-$userAge = $_POST['userAge'];
-$userCountry = $_POST['userCountry'];
+//echo $_POST['Email'];
+
+$userEmail = $_POST['Email'];	
+$userUsername = $_POST['Username'];
+$userPassword = $_POST['Password1'];
+$userPasswordConfirm = $_POST['Password2'];
+$userCountry = $_POST['Countries'];
 
 
 // Prevent MySQL Injections
-$userEmail = mysql_real_escape_string(stripslashes($userEmail));
-$userUsername = mysql_real_escape_string(stripslashes($userUsername));
-$userPassword = mysql_real_escape_string(stripslashes($userPassword));
-$userPasswordConfirm = mysql_real_escape_string(stripslashes($userPasswordConfirm));
+$userEmail = mysqli_real_escape_string($cn, stripslashes($userEmail));
+$userUsername = mysqli_real_escape_string($cn, stripslashes($userUsername));
+$userPassword = mysqli_real_escape_string($cn, stripslashes($userPassword));
+$userPasswordConfirm = mysqli_real_escape_string($cn, stripslashes($userPasswordConfirm));
 
+$eMatched = false;
+$uMatched = false;
 
-$sql = "SELECT * FROM user";
-$resultCount = mysql_query($sql, $cn) or
+//////////////// EMAIL CHECK ////////////////////////////////////
+$sql = "SELECT user_email FROM user";
+$result2 = mysqli_query($cn, $sql) or
 	die(mysql_error($cn));
 
-$num_users = mysql_num_rows($resultCount);
+$num_users = mysqli_num_rows($result2);
+
+$row = mysqli_fetch_array($result2);
+
+if($userEmail == $row['user_email']){
+   	echo 'e matched';
+   	$eMatched = true;
+}
+
+while ($row = $result2->fetch_assoc()) {  
+	if($userEmail == $row['user_email']){
+   		echo 'e matched';
+   		$eMatched = true;
+   }
+ }
+
+
+////////////////////////////// USERNAME CHECK /////////////////////////
+
+$sql = "SELECT user_username FROM user";
+$result2 = mysqli_query($cn, $sql) or
+	die(mysql_error($cn));
+
+$num_users = mysqli_num_rows($result2);
+
+$row = mysqli_fetch_array($result2);
+
+if($userUsername == $row['user_username']){
+   	//echo 'u matched';
+   	$uMatched = true;
+}
+
+while ($row = $result2->fetch_assoc()) {  
+	if($userUsername == $row['user_username']){
+   		//echo 'u matched';
+   		$uMatched = true;
+   }
+ }
+ ///////////////////////////////////////////////////////
+
+$sql = "SELECT * FROM user";
+$resultCount = mysqli_query($cn, $sql) or
+	die(mysql_error($cn));
+
+$num_users = mysqli_num_rows($resultCount);
 	
 $row_count = -1;
 while ($row_count < $num_users) {
-	$data = mysql_fetch_object($resultCount);
+	$data = mysqli_fetch_object($resultCount);
 	$row_count++;
+
 	
 	if ($row_count == $num_users) {
-		echo '<p>The username "' . $userUsername . '" has been selected.</p>';
+		//echo '<p>The username "' . $userUsername . '" has been selected.</p>';
 		
 		if ($userPassword != $userPasswordConfirm) {
-			echo '<p>Passwords do not match.</p>';
-			echo '<p><strong>New user has not been created.</strong></p>';
-			echo '<meta http-equiv="refresh" content="3;url=register.php">';
-		} elseif (is_numeric($userAge) == FALSE){
-			echo '<p>Age is not a number.</p>';
-			echo '<p><strong>New user has not been created.</strong></p>';
-			echo '<meta http-equiv="refresh" content="3;url=register.php">';
+			echo 'Error: Passwords do not match';
+			$error = "Passwords do not match";
+			return $error;
 		} elseif (empty($userPassword)){
-			echo '<p>Password is empty.</p>';
-			echo '<p><strong>New user has not been created.</strong></p>';
-			echo '<meta http-equiv="refresh" content="3;url=register.php">';
+			echo 'Password is empty';;
+			$error = "Password is empty";
+			return $error;
+		}elseif ($uMatched == true){
+			echo 'Username already taken';
+		}elseif ($eMatched == true){
+			echo 'Email already in use';
+		
 		}else {
-			echo '<p>Passwords match.</p>';
-			
+						
 			$sql = "INSERT INTO
 					user
 				(user_id,
 				user_email,
 				 user_username,
 				 user_password,
-				 user_sex,
-				 user_age,
 				 user_country)
 					VALUES
 				('" . $row_count . "',
 				'" . $userEmail . "', 
 				 '" . $userUsername . "',
 				 '" . $userPassword . "',
-				 '" . $userSex . "',
-				 '" . $userAge . "',
 				 '" . $userCountry . "')";
-			$result = mysql_query($sql, $cn) or
-				die(mysql_error($cn));
-			
-			echo "<p><strong>The username '" . $userUsername . "' has been created. Please login <a href='login.php'>here</a>.</strong></p>";
-			echo '<meta http-equiv="refresh" content="3;url=login.php">';
+			$result = mysqli_query($cn, $sql) or
+				die(mysqli_error($cn));
+			echo "<p id='goodText'><strong>CONGRATULATIONS and Welcome to GameTogether!!!</strong></p>";
+			echo "<p id='goodText'><strong>The username '" . $userUsername . "' has been created. </strong></p>";
+			echo '<meta http-equiv="refresh" content="4;url=login.php">';
 		}
 	}
 }
 ?>
-</body>
-</html>

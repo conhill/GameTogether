@@ -124,7 +124,8 @@ function doSearch() {
  <body>
  <?php
  include('cn.php');
- include('header.html');
+    include_once('password.php');
+  include_once('header.html');
  
 if (session_status() == PHP_SESSION_NONE) {
 	session_start();
@@ -142,11 +143,6 @@ $userUsername = $_SESSION['loggedInUser'];
 
 //$result = mysql_query($query);
 	echo "<div id = 'lognav'>";
-	echo "<ul style ='display: inline; padding-left: 10px;'>";
-	echo "<a href='\profile.php?UN=$userUsername'>Profile</a>&nbsp;";
-	echo "<a href='about.php'>About</a>&nbsp;";
-	echo "<a href='submit.php'>Submit</a>";
-	echo "</ul>";
 	echo "</div>";
 echo "<center><img src='nintendo.jpg' align='middle'></center>";
 echo "<input type='text' id='searchTerm' onkeyup='doSearch()' placeholder='Type to search'>";
@@ -155,17 +151,15 @@ echo "<div class='scrollit'>";
 echo "<table id='myTable' table border='1' class='table tablesorter'>
 <thead> 
     <tr>
-		<th width='20%' id='Title'>Title</th>
-		<th width='20%' id='Game'>Game</th>
-        <th width='6%' id='Consol'>Consol</th>
-        <th width='20%' id='GamerTag'>GamerTag</th>
-		<th width='20%' id='Username'>UserName</th>
-		<th width='7%' id='StartDate'>Start Date</th>
-		<th width='8%' id='StartTime'>Start Time</th>
-		<th width='7%' id='EndDate'>End Date</th>
-		<th width='8%' id='EndTime'>End Time</th>
-		<th width='4%' id='Slots'>Slots</th>
-		<th width='8%' id='Mic'>Mic</th>
+      <th  id='Title'>Title</th>
+      <th  id='Game'>Game</th>
+      <th  id='Consol'>Consol</th>
+      <th  id='GamerTag'>GamerTag</th>
+      <th  id='Username'>UserName</th>
+      <th  id='StartDate'>Start Date</th>
+      <th  id='StartTime'>Start Time</th>
+      <th  id='Slots'>Slots</th>
+      <th  id='Mic'>Mic</th>
     </tr>
 	</thead> ";
 echo "</div>";
@@ -177,20 +171,16 @@ while($row = mysqli_fetch_array($result))
   $UN = $row['Username'];
   $GT = $row['gamertag'];
   
-  echo  $row['Username'];
   echo "<tr>";
- echo "<td>" . "<a href=\"view_entry.php?id={$ID}\">$title</a>" . "</td>";
-  echo "<td>" . $row['game'] . "</td>";
-    echo "<td>" . $row['consol'] . "</td>";
-  //echo "<a href='\profile.php?UN=$userUsername'>Profile</a>&nbsp;";
-  echo "<td>" . $GT . "</td>";
-  echo "<td>" . "<a href='\profile.php?UN=$UN'>$UN</a>" . "</td>";
-  echo "<td>" . $row['startdate'] . "</td>";
-  echo "<td>" . $row['starttime'] . "</td>";
-  echo "<td>" . $row['enddate'] . "</td>";
-  echo "<td>" . $row['endtime'] . "</td>";
-  echo "<td>" . $row['slots'] . "</td>";
-  echo "<td>" . $row['mic'] . "</td>";
+  echo "<td class='titleRow' style='max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;'>" . "<a href=\"view_entry.php?id={$ID}\">$title</a>" . "</td>";
+  echo "<td class='gameRow' style='max-width: 175px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;'>" . $row['game'] . "</td>";
+  echo "<td class='consolRow'>" . $row['consol'] . "</td>";
+  echo "<td class='gtRow' style='max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;'>" . $GT . "</td>";
+  echo "<td class='unRow'>" . "<a href='\profile.php?UN=$UN'>$UN</a>" . "</td>";
+  echo "<td class='stDateRow'>" . $row['startdate'] . "</td>";
+  echo "<td class='stTimeRow' max-width: 75px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;>" . $row['starttime'] . "</td>";
+  echo "<td class='slotRow' max-width: 25x; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;>" . $row['slots'] . "</td>";
+  echo "<td class='micRow'>" . $row['mic'] . "</td>";
   echo "</tr>";
   }
  echo "</tbody>";
@@ -321,6 +311,7 @@ function doSearch() {
  <body>
  <?php
  include('cn.php');
+   include_once('header.html');
     include_once('password.php');
    
 $dbc = mysqli_connect('localhost', 'Dnoop', $password, 'gametogether');
@@ -329,11 +320,6 @@ $result = mysqli_query($dbc, "SELECT * FROM requestpost WHERE consol='Gamecube' 
 
 //$result = mysql_query($query);
 	echo "<div id = 'lognav'>";
-	echo "<ul style ='display: inline; padding-left: 10px;'>";
-	echo "<a href='about.php'>About</a>&nbsp;";
-	echo "<a href='login.php'>Login</a>&nbsp;";
-	echo "<a href='register.php'>Register</a>";
-	echo "</ul>";
 	echo "</div>";
 echo "<center><img src='nintendo.jpg' align='middle'></center>";
 echo "<input type='text' id='searchTerm' onkeyup='doSearch()' placeholder='Type to search'>";
@@ -342,17 +328,15 @@ echo "<div class='scrollit'>";
 echo "<table id='myTable' table border='1' class='table tablesorter'>
 <thead> 
     <tr>
-		<th width='20%' id='Title'>Title</th>
-		<th width='20%' id='Game'>Game</th>
-        <th width='6%' id='Consol'>Consol</th>
-        <th width='20%' id='GamerTag'>GamerTag</th>
-		<th width='20%' id='Username'>UserName</th>
-		<th width='7%' id='StartDate'>Start Date</th>
-		<th width='8%' id='StartTime'>Start Time</th>
-		<th width='7%' id='EndDate'>End Date</th>
-		<th width='8%' id='EndTime'>End Time</th>
-		<th width='4%' id='Slots'>Slots</th>
-		<th width='8%' id='Mic'>Mic</th>
+      <th  id='Title'>Title</th>
+      <th  id='Game'>Game</th>
+          <th  id='Consol'>Consol</th>
+          <th  id='GamerTag'>GamerTag</th>
+      <th  id='Username'>UserName</th>
+      <th  id='StartDate'>Start Date</th>
+      <th  id='StartTime'>Start Time</th>
+      <th  id='Slots'>Slots</th>
+      <th  id='Mic'>Mic</th>
     </tr>
 	</thead> ";
 echo "</div>";
@@ -364,20 +348,16 @@ while($row = mysqli_fetch_array($result))
   $UN = $row['Username'];
   $GT = $row['gamertag'];
   
-  echo  $row['Username'];
   echo "<tr>";
- echo "<td>" . "<a href=\"view_entry.php?id={$ID}\">$title</a>" . "</td>";
-  echo "<td>" . $row['game'] . "</td>";
-    echo "<td>" . $row['consol'] . "</td>";
-  //echo "<a href='\profile.php?UN=$userUsername'>Profile</a>&nbsp;";
-  echo "<td>" . $GT . "</td>";
-  echo "<td>" . "<a href='\profile.php?UN=$UN'>$UN</a>" . "</td>";
-  echo "<td>" . $row['startdate'] . "</td>";
-  echo "<td>" . $row['starttime'] . "</td>";
-  echo "<td>" . $row['enddate'] . "</td>";
-  echo "<td>" . $row['endtime'] . "</td>";
-  echo "<td>" . $row['slots'] . "</td>";
-  echo "<td>" . $row['mic'] . "</td>";
+  echo "<td class='titleRow' style='max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;'>" . "<a href=\"view_entry.php?id={$ID}\">$title</a>" . "</td>";
+  echo "<td class='gameRow' style='max-width: 175px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;'>" . $row['game'] . "</td>";
+  echo "<td class='consolRow'>" . $row['consol'] . "</td>";
+  echo "<td class='gtRow' style='max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;'>" . $GT . "</td>";
+  echo "<td class='unRow'>" . "<a href='\profile.php?UN=$UN'>$UN</a>" . "</td>";
+  echo "<td class='stDateRow'>" . $row['startdate'] . "</td>";
+  echo "<td class='stTimeRow' max-width: 75px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;>" . $row['starttime'] . "</td>";
+  echo "<td class='slotRow' max-width: 25x; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;>" . $row['slots'] . "</td>";
+  echo "<td class='micRow'>" . $row['mic'] . "</td>";
   echo "</tr>";
   }
  echo "</tbody>";

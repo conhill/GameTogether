@@ -19,12 +19,10 @@ if(isset($_SESSION['loggedInUser'])){
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
   <title>Game Together</title>
 
-  
-  
-  
-  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
   
   <style type='text/css'>
  a:link {color:#0000FF;
@@ -40,14 +38,15 @@ a:active {color:#0000FF;
  font-weight: bold; 
  text-decoration:none;}  /* selected link */
 .myButton {
-	-moz-box-shadow:inset 0px 1px 3px 0px #91b8b3;
-	-webkit-box-shadow:inset 0px 1px 3px 0px #91b8b3;
-	box-shadow:inset 0px 1px 3px 0px #91b8b3;
-	background-color:#3b403f;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
-	border:1px solid #566963;
+	-moz-box-shadow:inset 0px 2px 6px rgba(0,0,0,0.3);
+	-webkit-box-shadow:inset 0px 2px 6px rgba(0,0,0,0.3);
+	box-shadow:inset 0px 2px 6px rgba(0,0,0,0.3);
+	background-color: #033649;
+	background-image: -webkit-linear-gradient(top, #033649, #031634);
+	-moz-border-radius: 0 2px 2px 0;
+	-webkit-border-radius:0 2px 2px 0;
+	border-radius:0 2px 2px 0;;
+	border:0;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
@@ -57,9 +56,11 @@ a:active {color:#0000FF;
 	padding:32px 76px;
 	text-decoration:none;
 	text-shadow:0px -1px 0px #2b665e;
+	font-family: 'Quicksand', sans-serif;
 }
 .myButton:hover {
-	background-color:#4a5757;
+	background: #031634;
+	font-family: 'Quicksand', sans-serif;
 }
 .myButton:active {
 	position:relative;
@@ -70,6 +71,27 @@ a:active {color:#0000FF;
 position:fixed;
 top:30px;
 right:35px;
+}
+input#NintendoBtn {
+  background-image: url(Nintendo.png);
+  background-repeat: no-repeat;
+  background-size: 260px 80px;
+  background-position: 0px 10px;
+  width: 260px;
+}
+input#MicrosftBtn {
+  background-image: url(MicrosoftBtn.png);
+  background-repeat: no-repeat;
+  background-size: 260px 80px;
+  background-position: 0px 10px;
+  width: 260px;
+}
+input#SonyBtn {
+  background-image: url(RenderLogoSony.png);
+  background-repeat: no-repeat;
+  background-size: 260px 80px;
+  background-position: 0px 10px;
+  width: 260px;
 }
 form { display: inline; }
   </style>
@@ -88,26 +110,21 @@ window.onload=function(){
 <body>
   <html>
     <body>
-			<div id = "lognav" style ="text-align:left;">
-			<ul id="nav"  >
-			<a href="\profile.php?UN=<?php echo $userUsername; ?>">Profile</a></td>&nbsp&nbsp
-			<a href="about.php">About</a>&nbsp&nbsp
-			<a href="submit.php">Submit</a>&nbsp&nbsp
 		</ul>
 		</div>
 		<center><img src="newest.jpg" align="middle"></center>
         <div id="buttonsDiv" style="text-align:center;  bottom:20px;">
 			<form action="sony_list.php">
-				<input type="submit" value="Sony" class = "myButton">
+				<input type="submit"  value="Sony" class = "myButton">
 			</form>
 			<form action="microsoft_list.php">
-				<input type="submit" value="Microsoft" class = "myButton">
+				<input type="submit"  value="Microsoft" class = "myButton">
 			</form>
 			<form action="PC_list.php">
 				<input type="submit" value="PC" class = "myButton">
 			</form>
 			<form action="nintendo_list.php">
-				<input type="submit" value="Nintendo" class = "myButton">
+				<input type="submit" value="Nintendo"  class = "myButton">
 			</form>
         </div>
 		
@@ -118,13 +135,11 @@ window.onload=function(){
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
   <title>Game Together</title>
   
-  
-  
-  
-  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
-  
+   
   <style type='text/css'>
    a:link {color:#0000FF;
  font-weight: bold; 
@@ -156,9 +171,11 @@ a:active {color:#0000FF;
 	padding:32px 76px;
 	text-decoration:none;
 	text-shadow:0px -1px 0px #2b665e;
+	font-family: 'Quicksand', sans-serif;
 }
 .myButton:hover {
 	background-color:#4a5757;
+	font-family: 'Quicksand', sans-serif;
 }
 .myButton:active {
 	position:relative;
@@ -170,6 +187,12 @@ position:fixed;
 top:30px;
 right:35px;
 }
+input#NintendoBtn {
+  background-image: url(Nintendo.png);
+  background-repeat: no-repeat;
+  background-size: 260px 80px;
+  background-position: 0px 10px;
+}
 form { display: inline; }
   </style>
 </head>
@@ -177,11 +200,7 @@ form { display: inline; }
     
     <body>
 		<div id = "lognav" style ="text-align:left;">
-		<ul id="nav">
-			<li><a href="about.php">About</a></li>
-			<li><a href="login.php">Login</a></li>
-			<li><a href="register.php">Register</a></li>
-		</ul>
+
 		</div>
 		<center><img src="newest.jpg" align="middle"></center>
         <div id="buttonsDiv" style="text-align:center;  bottom:20px;">
@@ -195,7 +214,7 @@ form { display: inline; }
 				<input type="submit" value="PC" class = "myButton">
 			</form>
 			<form action="nintendo_list.php">
-				<input type="submit" value="Nintendo" class = "myButton">
+				<input type="submit"  id="NintedoBtn" class = "myButton">
 			</form>
         </div>
 		

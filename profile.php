@@ -20,40 +20,38 @@ if ($userUsername != $_GET['UN']){ //Logged in. Other profile
     height:700px;
 }
 h2 {font-size:200%}
+
+	.centerProfile {
+	  width: 300px;
+	  text-align: left;
+	}
 </style>
 </head>
 <body>
 <center><img src="profile.jpg" align="middle"></center>
-<h2>Profile of <?php echo $_GET['UN']; ?></h2>
-<h3><a href="mainmain.php">[Main Page]</a></h3>
+<center><h2>Profile of <?php echo $_GET['UN']; ?></h2>
 <h2>Info:</h2>
 <?php 
 $UN = $_GET['UN'];
 $sql = "SELECT * FROM user WHERE
 	user_username = '" . $UN . "'";
-$result = mysql_query($sql, $cn) or
-	die(mysql_error($cn));
-$row = mysql_fetch_assoc($result);
+$result = mysqli_query($cn, $sql) or
+	die(mysqli_error($cn));
+$row = mysqli_fetch_assoc($result);
 
-
-// mysql_select_db('gametogether', $dbc);
- 
-//$query = "SELECT ID FROM requestpost WHERE ID = 'ID'"
-//$result = mysqli_query($dbc2, "SELECT * FROM user WHERE user_username = '$UN'");
-  echo "<strong><big>" . 'Email: '. "</strong></big>";
-  echo $row['user_email'];
-  echo "<br><strong><big>" . 'Sex: '. "</strong></big>";
-  echo  $row['user_sex'];
-  echo "<br><strong><big>" . 'Age: '. "</strong></big>";
-  echo  $row['user_age'];
-  echo "<br><strong><big>" . 'Country: '. "</strong></big>";
-  echo  $row['user_country'];
+  echo "<div class='centerProfile'><strong><big>" . 'Email: '. "</strong></big>";
+  echo $row['user_email'] . "</div>";
+  echo "<div class='centerProfile'><br><strong><big>" . 'Country: '. "</strong></big>";
+  echo  $row['user_country'] . "</div>";
 
 
 
 ?>
+</center>
 </body>
 </html>
+
+
  <?php } elseif($userUsername == $_GET['UN']){  ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -159,15 +157,76 @@ $row = mysql_fetch_assoc($result);
     overflow:scroll;
     height:700px;
 }
+
+h2#infoLine {
+  padding-top: 10px;
+  border-top: 1px solid black;
+}
+
 h2 {font-size:200%}
+
+	.inputRegister {
+	  width: 150px;
+	  height: 50px;
+	  border-radius: 0px;
+	  border: 0px;
+	  border-image-source: initial;
+	  border-image-slice: initial;
+	  border-image-width: initial;
+	  border-image-outset: initial;
+	  border-image-repeat: initial;
+	  color: white;
+	  font-size: 16px;
+	  background: rgb(0, 136, 204);
+	  margin-left: 15px;
+	
+	}
+.inputRegister:hover {
+	background: -webkit-linear-gradient(rgb(0, 136, 204), rgb(1, 111, 166)); /* For Safari 5.1 to 6.0 */
+  	background: -o-linear-gradient(rgb(0, 136, 204), rgb(1, 111, 166)); /* For Opera 11.1 to 12.0 */
+  	background: -moz-linear-gradient(rgb(0, 136, 204), rgb(1, 111, 166)); /* For Firefox 3.6 to 15 */
+  	background: linear-gradient(rgb(0, 136, 204), rgb(1, 111, 166)); /* Standard syntax */
+}
+
+	a#notLink {
+	  color: white;
+	  font-weight: 500;
+	  border: 0px;
+	  border-radius: 0px;
+	  text-decoration: none;
+	  font-size: 16px;
+	}
+
+	.centerProfile {
+	  width: 200px;
+	  text-align: left;
+	}
 </style>
+<script type="text/javascript">
+function myFunction() {
+		$.ajax({
+	        url: '/GT/logout.php',
+	        type: 'POST',
+	        dataType: "json",
+	        data: {
+	        },
+	        success: function(data){
+	            console.log(JSON.stringify(data));
+	            window.location.replace("mainmain.php")
+	        },
+	         error: function(data) {
+	            console.log(JSON.stringify(data));
+	            window.location.replace("mainmain.php")            
+	        }
+	    });
+}
+</script>
 </head>
 <body>
 <center><img src="profile.jpg" align="middle"></center>
-<h2>Welcome <?php echo $userUsername; ?></h2>
-<h3><a href="logout.php">[LOGOUT]</a></h3>
-<h3><a href="mainmain.php">[Main Page]</a></h3>
-<h2>Your Info:</h2>
+<center><h2>Welcome <?php echo $userUsername; ?>!!</h2>
+<button class="inputRegister" ><a id="notLink" onclick="myFunction()">LOGOUT</a></button>
+<center><h2 id="infoLine">Your Info:</h2></center>
 <?php 
 $userUsername = $_SESSION['loggedInUser'];
 
@@ -178,16 +237,12 @@ $result = mysqli_query($cn, $sql) or
 	die(mysqli_error($cn));
 $row = mysqli_fetch_assoc($result);
 
-  echo "<strong><big>" . 'Email: '. "</strong></big>";
-  echo $row['user_email'];
-  echo "<br><strong><big>" . 'Sex: '. "</strong></big>";
-  echo  $row['user_sex'];
-  echo "<br><strong><big>" . 'Age: '. "</strong></big>";
-  echo  $row['user_age'];
-  echo "<br><strong><big>" . 'Country: '. "</strong></big>";
-  echo  $row['user_country'];
+  echo "<div class='centerProfile'><strong><big>" . 'Email: '. "</strong></big>";
+  echo $row['user_email'] . "</div>";
+  echo "<div class='centerProfile'><br><strong><big>" . 'Country: '. "</strong></big>";
+  echo  $row['user_country'] . "</div>";
 
-echo "<h2>Your Posts:</h2>";
+echo "<h2 id='infoLine'>Your Posts:</h2>";
 
 include_once('password.php');
 
@@ -224,6 +279,7 @@ while($row = mysqli_fetch_array($result))
   }
   }
 ?>
+</center>
 </body>
 </html>
 <?php } else { ?>
@@ -236,34 +292,31 @@ while($row = mysqli_fetch_array($result))
     height:700px;
 }
 h2 {font-size:200%}
+
+	.centerProfile {
+	  width: 300px;
+	  text-align: left;
+	}
 </style>
 </head>
 <body>
 <center><img src="profile.jpg" align="middle"></center>
-<h2>Profile of <?php echo $_GET['UN']; ?></h2>
-<h3><a href="mainmain.php">[Main Page]</a></h3>
+<center><h2>Profile of <?php echo $_GET['UN']; ?></h2>
 <h2>Info:</h2>
 <?php 
 $UN = $_GET['UN'];
 $sql = "SELECT * FROM user WHERE
 	user_username = '" . $UN . "'";
-$result = mysql_query($sql, $cn) or
-	die(mysql_error($cn));
-$row = mysql_fetch_assoc($result);
+$result = mysqli_query($cn, $sql) or
+	die(mysqli_error($cn));
+$row = mysqli_fetch_assoc($result);
 
 
-// mysql_select_db('gametogether', $dbc);
- 
-//$query = "SELECT ID FROM requestpost WHERE ID = 'ID'"
-//$result = mysqli_query($dbc2, "SELECT * FROM user WHERE user_username = '$UN'");
-  echo "<strong><big>" . 'Email: '. "</strong></big>";
-  echo $row['user_email'];
-  echo "<br><strong><big>" . 'Sex: '. "</strong></big>";
-  echo  $row['user_sex'];
-  echo "<br><strong><big>" . 'Age: '. "</strong></big>";
-  echo  $row['user_age'];
-  echo "<br><strong><big>" . 'Country: '. "</strong></big>";
-  echo  $row['user_country'];
+  echo "<div class='centerProfile'><strong><big>" . 'Email: '. "</strong></big>";
+  echo $row['user_email'] . "</div>";
+  echo "<div class='centerProfile'><br><strong><big>" . 'Country: '. "</strong></big>";
+  echo  $row['user_country'] . "</div>";
 }  ?>
+</center>
 </html>
 
